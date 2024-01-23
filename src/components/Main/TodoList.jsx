@@ -1,38 +1,26 @@
-import React, { useEffect, useState } from "react";
-
-// redux
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { todoActions } from "../../store/todo-slice";
-
-// styles
 import { List, TodoListContainer, Empty } from "./TodoListStyles";
-
-// components
 import TodoListItem from "./TodoListItem";
 import ListController from "./ListController";
 
 function TodoList() {
-  // redux
   const dispatch = useDispatch();
   const activeFilter = useSelector((state) => state.ui.activeFilter);
   const todoList = useSelector((state) => state.todo.todoList);
-
   const [activeList, setActiveList] = useState(todoList);
 
   const getActiveList = () => {
     switch (activeFilter) {
       case "all":
-        setActiveList(todoList);
-        break;
+        return todoList;
       case "active":
-        const activeList = todoList.filter((item) => !item.isCompleted);
-        setActiveList(activeList);
-        break;
+        return todoList.filter((item) => !item.isCompleted);
       case "completed":
-        const completedList = todoList.filter((item) => item.isCompleted);
-        setActiveList(completedList);
-        break;
+        return todoList.filter((item) => item.isCompleted);
+      default:
+        return todoList;
     }
   };
 
@@ -41,15 +29,37 @@ function TodoList() {
   };
 
   useEffect(() => {
-    getActiveList();
+    setActiveList(getActiveList());
   }, [activeFilter, todoList]);
+
+  // reorderer logic
+  const dragItem = useRef(0);
+  const draggedOverItem = useRef(0);
+
+  const handleSort = () => {
+    const listClone = [...activeList];
+    const temp = listClone[dragItem.current];
+    listClone[dragItem.current] = listClone[draggedOverItem.current];
+    listClone[draggedOverItem.current] = temp;
+    dispatch(todoActions.updateSortOrder(listClone));
+  };
 
   return (
     <TodoListContainer>
       <List>
         {activeList.length > 0 ? (
-          activeList.map((item) => (
-            <TodoListItem key={item.id} item={item} removeItem={removeItem} />
+          activeList.map((item, index) => (
+            <TodoListItem
+              key={item.id}
+              item={item}
+              removeItem={removeItem}
+              // dragging events
+              draggable={true}
+              onDragStart={() => (dragItem.current = index)}
+              onDragEnter={() => (draggedOverItem.current = index)}
+              onDragEnd={handleSort}
+              onDragOver={(e) => e.preventDefault()}
+            />
           ))
         ) : (
           <Empty>Empty</Empty>

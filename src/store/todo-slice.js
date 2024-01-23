@@ -49,34 +49,13 @@ const todoSlice = createSlice({
       const updatedItems = state.todoList.map((item) =>
         item.id === id ? { ...item, isCompleted: isCompleted } : item
       );
+
       state.todoList = updatedItems;
-
-      state.completedList = state.todoList.filter((item) => item.isCompleted);
-
-      state.activeList = state.todoList.filter((item) => !item.isCompleted);
     },
-    // getFilteredList(state, action) {
-    //   switch (action.payload) {
-    //     case "all":
-    //       return state.todoList;
-    //       break;
-    //     case "active":
-    //       return state.activeList;
-    //       break;
-    //     case "completed":
-    //       return state.completedList;
-    //       break;
-    //   }
-    // },
-    // getAllItems(state) {
-    //   state.shownList = [...state.todoList];
-    // },
-    // getCompletedList(state) {
-    //   state.shownList = [...state.completedList];
-    // },
-    // getActiveItemList(state) {
-    //   state.shownList = [...state.activeList];
-    // },
+    updateSortOrder(state, action) {
+      const sortedList = action.payload;
+      state.todoList = sortedList;
+    },
   },
 });
 
