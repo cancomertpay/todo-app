@@ -37,7 +37,7 @@ function TodoList() {
   const draggedOverItem = useRef(0);
 
   const handleSort = () => {
-    const listClone = [...activeList];
+    const listClone = [...todoList];
     const temp = listClone[dragItem.current];
     listClone[dragItem.current] = listClone[draggedOverItem.current];
     listClone[draggedOverItem.current] = temp;
