@@ -12,12 +12,14 @@ function Reorderer() {
   const dispatch = useDispatch();
 
   const handleScroll = () => {
-    const scrollHeight = document.documentElement.scrollHeight;
-    const scrollTop =
-      document.documentElement.scrollTop || document.body.scrollTop;
-    const clientHeight = document.documentElement.clientHeight;
+    const windowHeight = window.innerHeight;
+    const totalHeight = document.documentElement.scrollHeight;
+    const scrollPosition = window.scrollY || window.pageYOffset;
 
-    if (scrollHeight - scrollTop === clientHeight) {
+    if (
+      scrollPosition + windowHeight >= totalHeight &&
+      scrollPosition < totalHeight
+    ) {
       dispatch(uiActions.nextFilter());
     }
   };

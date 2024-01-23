@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // redux
 import { useSelector } from "react-redux";
@@ -10,25 +10,29 @@ import { Filterer, ListFiltererContainer } from "./ListFilterersStyles";
 
 function ListFilterers() {
   // redux
-  const activeFilter = useSelector((state) => state.activeFilter);
+  const activeFilter = useSelector((state) => state.ui.activeFilter);
   const dispatch = useDispatch();
 
   const [isActive, setIsActive] = useState(activeFilter);
 
   const getAllItemsList = () => {
     dispatch(uiActions.switchFilter("all"));
-    setIsActive(activeFilter);
+    setIsActive("all");
   };
 
   const getActiveItemsList = () => {
     dispatch(uiActions.switchFilter("active"));
-    setIsActive(activeFilter);
+    setIsActive("active");
   };
 
   const getCompletedItemsList = () => {
     dispatch(uiActions.switchFilter("completed"));
-    setIsActive(activeFilter);
+    setIsActive("completed");
   };
+
+  useEffect(() => {
+    setIsActive(activeFilter);
+  }, [activeFilter]);
 
   return (
     <ListFiltererContainer>
