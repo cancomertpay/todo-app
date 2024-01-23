@@ -10,7 +10,6 @@ import { List, TodoListContainer, Empty } from "./TodoListStyles";
 
 // components
 import TodoListItem from "./TodoListItem";
-import Notification from "./Notification";
 import ListController from "./ListController";
 
 function TodoList() {
@@ -57,7 +56,6 @@ function TodoList() {
         )}
       </List>
       {activeList.length > 0 && <ListController list={activeList} />}
-      <Notification />
     </TodoListContainer>
   );
 }
