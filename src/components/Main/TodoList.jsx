@@ -33,6 +33,7 @@ function TodoList() {
   }, [activeFilter, todoList]);
 
   // reorderer logic
+  // drag event handlers
   const dragItem = useRef(0);
   const draggedOverItem = useRef(0);
 
@@ -44,9 +45,66 @@ function TodoList() {
     dispatch(todoActions.updateSortOrder(listClone));
   };
 
+  // touch event handlers
+  const draggedItem = useRef(null);
+  const draggedItemY = useRef(null);
+  const listRef = useRef(null);
+
+  const handleTouchStart = (index) => {
+    draggedItem.current = index;
+  };
+  const handleTouchMove = (e) => {
+    requestAnimationFrame(() => {
+      if (draggedItem.current === null) return;
+
+      const touch = e.changedTouches[0];
+      const listRect = listRef.current.getBoundingClientRect();
+      const draggedOverItem = document.elementFromPoint(
+        touch.clientX - listRect.left,
+        touch.clientY - listRect.top
+      );
+
+      const closestLi = draggedOverItem.closest("li");
+
+      if (closestLi) {
+        const draggedOverItemIndex = Array.from(
+          closestLi.parentNode.children
+        ).indexOf(closestLi);
+
+        if (draggedOverItemIndex !== -1) {
+          const listClone = [...todoList];
+          const temp = listClone[draggedItem.current];
+          listClone[draggedItem.current] = listClone[draggedOverItemIndex];
+          listClone[draggedOverItemIndex] = temp;
+          dispatch(todoActions.updateSortOrder(listClone));
+
+          draggedItem.current = draggedOverItemIndex;
+
+          // Anlık olarak hareket ettirme
+          const prevY = draggedItemY.current || touch.clientY;
+          const deltaY = touch.clientY - prevY;
+
+          closestLi.style.transform = `translateY(${deltaY}px)`;
+          draggedItemY.current = touch.clientY;
+        }
+      }
+    });
+  };
+
+  const handleTouchEnd = () => {
+    draggedItem.current = null;
+    draggedItemY.current = null;
+  };
+
   return (
     <TodoListContainer>
-      <List>
+      <List
+        ref={listRef}
+        // touch event
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchEnd}
+      >
         {activeList.length > 0 ? (
           activeList.map((item, index) => (
             <TodoListItem
@@ -54,11 +112,13 @@ function TodoList() {
               item={item}
               removeItem={removeItem}
               // dragging events
-              draggable={true}
+              draggable={activeFilter === "all"}
               onDragStart={() => (dragItem.current = index)}
               onDragEnter={() => (draggedOverItem.current = index)}
               onDragEnd={handleSort}
               onDragOver={(e) => e.preventDefault()}
+              // touch event
+              onTouchStart={() => handleTouchStart(index)}
             />
           ))
         ) : (

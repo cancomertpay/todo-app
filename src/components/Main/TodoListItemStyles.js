@@ -7,6 +7,7 @@ export const ListItem = styled.li`
   padding: 0.8rem;
   position: relative;
   border-bottom: 1px solid ${(props) => props.theme.checkboxBorder};
+  touch-action: none;
 
   &:last-child {
     border: none;
@@ -25,9 +26,9 @@ export const TodoWrapper = styled.div`
 
 export const TodoText = styled.p`
   max-width: 100%;
-  margin: 0;
+  margin: 0 0 0 0.5rem;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 18px;
   text-decoration: ${(props) => (props.$checked ? "line-through" : "none")};
   color: ${(props) =>
     props.$checked ? props.theme.checkboxBorder : props.theme.textColor};

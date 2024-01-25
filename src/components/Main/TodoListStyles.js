@@ -13,8 +13,7 @@ export const List = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
-  height: 17.4rem;
-  overflow-y: auto;
+  touch-action: none;
 `;
 
 export const Empty = styled.div`
