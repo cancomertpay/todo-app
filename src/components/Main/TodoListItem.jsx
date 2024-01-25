@@ -16,13 +16,20 @@ import { RxCross1 } from "react-icons/rx";
 
 function TodoListItem({ item, removeItem, allScroll, ...props }) {
   const [showFullText, setShowFullText] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const toggleShowFullText = () => {
     setShowFullText((prev) => !prev);
   };
 
   return (
-    <ListItem $allScroll={allScroll} {...props} id={item.id}>
+    <ListItem
+      onMouseOver={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      $allScroll={allScroll}
+      {...props}
+      id={item.id}
+    >
       <TodoWrapper>
         <Checkbox id={item.id} isCompleted={item.isCompleted} />
         <TodoText
@@ -34,7 +41,7 @@ function TodoListItem({ item, removeItem, allScroll, ...props }) {
           {item.text}
         </TodoText>
       </TodoWrapper>
-      <DeleteIcon onClick={() => removeItem(item.id)}>
+      <DeleteIcon $isHovered={isHovered} onClick={() => removeItem(item.id)}>
         <RxCross1 />
       </DeleteIcon>
     </ListItem>

@@ -56,6 +56,6 @@ export const DeleteIcon = styled.div`
   color: ${(props) => props.theme.checkedTextColor};
 
   @media screen and (min-width: 1000px) {
-    display: none;
+    visibility: ${(props) => (props.$isHovered ? "visible" : "hidden")};
   }
 `;
