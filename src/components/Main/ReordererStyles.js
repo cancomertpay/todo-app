@@ -5,5 +5,6 @@ export const ReordererContainer = styled.div`
   margin-top: 1rem;
   font-size: 14px;
   font-weight: 700;
-  color: ${props => props.theme.cardColor};
+  color: ${props => props.theme.secondaryTextColor};
+  user-select: none;
 `

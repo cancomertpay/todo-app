@@ -9,13 +9,13 @@ const StyledHeader = styled.header`
     letter-spacing: 0.5rem;
     margin: 0;
     color: #fff;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
   }
 
   svg {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: #fff;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
     cursor: pointer;
   }
 `;

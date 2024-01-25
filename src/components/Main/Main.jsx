@@ -17,6 +17,7 @@ import TodoList from "./TodoList";
 import SubmitterCheckbox from "./SubmitterCheckbox";
 import ListFilterers from "./ListFilterers";
 import Reorderer from "./Reorderer";
+import Notification from "./Notification";
 
 function Main() {
   // redux
@@ -24,19 +25,37 @@ function Main() {
 
   const [userInput, setUserInput] = useState("");
   const [isChecked, setIsChecked] = useState(false);
+  const [isUserHittedEnter, setIsUserHittedEnter] = useState(false);
 
   const handleInputChange = (e) => {
     setUserInput(e.target.value);
   };
 
   const handleCheckboxChange = (e) => {
-    if (userInput.length > 3) {
+    if(userInput.length > 3) {
       setIsChecked((prev) => !prev);
     }
+    return;
   };
 
   const handleSubmit = () => {
-    if (isChecked) {
+    if (isChecked && userInput.length > 3) {
+      dispatch(
+        todoActions.addItemToList({
+          id: generateUniqueId(),
+          isCompleted: false,
+          text: userInput,
+        })
+      );
+      setUserInput("");
+      setIsUserHittedEnter(false);
+      setTimeout(() => {
+        setIsChecked(false);
+      }, 1000);
+    }
+
+    if (isUserHittedEnter && userInput.length > 3) {
+      setIsUserHittedEnter(false);
       dispatch(
         todoActions.addItemToList({
           id: generateUniqueId(),
@@ -51,9 +70,16 @@ function Main() {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === "Enter" || e.key === "Enter") {
+      e.preventDefault();
+      setIsUserHittedEnter(true);
+    }
+  };
+
   useEffect(() => {
     handleSubmit();
-  }, [isChecked]);
+  }, [isChecked, isUserHittedEnter]);
 
   return (
     <StyledMain>
@@ -62,11 +88,16 @@ function Main() {
           onChange={handleCheckboxChange}
           checked={isChecked}
         />
-        <Input onChange={handleInputChange} value={userInput} />
+        <Input
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+          value={userInput}
+        />
       </Card>
       <TodoList />
       <ListFilterers />
       <Reorderer />
+      <Notification />
     </StyledMain>
   );
 }

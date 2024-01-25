@@ -7,7 +7,7 @@ export const ListItem = styled.li`
   padding: 0.8rem;
   position: relative;
   border-bottom: 1px solid ${(props) => props.theme.checkboxBorder};
-  touch-action: none;
+  cursor: ${(props) => (props.$allScroll ? "all-scroll" : "not-allowed")};
 
   &:last-child {
     border: none;
@@ -27,11 +27,11 @@ export const TodoWrapper = styled.div`
 export const TodoText = styled.p`
   max-width: 100%;
   margin: 0 0 0 0.5rem;
-  cursor: pointer;
-  font-size: 18px;
+  cursor: ${(props) => (props.$allScroll ? "all-scroll" : "not-allowed")};
+  font-size: 15px;
   text-decoration: ${(props) => (props.$checked ? "line-through" : "none")};
   color: ${(props) =>
-    props.$checked ? props.theme.checkboxBorder : props.theme.textColor};
+    props.$checked ? props.theme.checkedTextColor : props.theme.textColor};
   transition: all 0.5s;
   overflow-x: auto;
   overflow-wrap: ${(props) => (props.$showFull ? "break-word" : "normal")};
@@ -39,9 +39,10 @@ export const TodoText = styled.p`
 `;
 
 export const DeleteIcon = styled.div`
+  cursor: pointer;
   padding: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${(props) => props.theme.checkboxBorder};
+  color: ${(props) => props.theme.checkedTextColor};
 `;

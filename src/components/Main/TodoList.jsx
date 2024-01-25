@@ -48,42 +48,52 @@ function TodoList() {
   const draggedItem = useRef(null);
   const listRef = useRef(null);
 
-  const handleTouchStart = (index) => {
-    draggedItem.current = index;
+  const handleTouchStart = (index, e) => {
+    if (activeFilter === "all") {
+      draggedItem.current = index;
+      document.body.style.overflow = "hidden";
+    }
+
+    return;
   };
 
   const handleTouchMove = (e) => {
-      if (draggedItem.current === null) return;
-  
-      const touch = e.touches[0];
-      const listRect = listRef.current.getBoundingClientRect();
-      const draggedOverItem = document.elementFromPoint(
-        touch.clientX - listRect.left,
-        touch.clientY - listRect.top
-      );
-  
-      // En üstteki <li> elemanını bul
+    if (draggedItem.current === null || activeFilter !== "all") return;
+
+    const touch = e.touches[0];
+    const listRect = listRef.current.getBoundingClientRect();
+    const draggedOverItem = document.elementFromPoint(
+      touch.clientX - listRect.left,
+      touch.clientY - listRect.top
+    );
+    if (draggedOverItem) {
       const closestLi = draggedOverItem.closest("li");
-  
+
       if (closestLi) {
         const draggedOverItemIndex = Array.from(
           closestLi.parentNode.children
         ).indexOf(closestLi);
-  
+
         if (draggedOverItemIndex !== -1) {
           const listClone = [...todoList];
           const temp = listClone[draggedItem.current];
           listClone[draggedItem.current] = listClone[draggedOverItemIndex];
           listClone[draggedOverItemIndex] = temp;
           dispatch(todoActions.updateSortOrder(listClone));
-  
+
           draggedItem.current = draggedOverItemIndex;
         }
       }
+    }
   };
 
   const handleTouchEnd = () => {
-    draggedItem.current = null;
+    if (activeFilter === "all") {
+      draggedItem.current = null;
+      document.body.style.overflow = "auto";
+    }
+
+    return;
   };
 
   return (
@@ -100,6 +110,7 @@ function TodoList() {
               key={item.id}
               item={item}
               removeItem={removeItem}
+              allScroll={activeFilter === "all"}
               // dragging events
               draggable={activeFilter === "all"}
               onDragStart={() => (dragItem.current = index)}
@@ -107,7 +118,7 @@ function TodoList() {
               onDragEnd={handleSort}
               onDragOver={(e) => e.preventDefault()}
               // touch events
-              onTouchStart={() => handleTouchStart(index)}
+              onTouchStart={(e) => handleTouchStart(index, e)}
             />
           ))
         ) : (

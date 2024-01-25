@@ -14,7 +14,7 @@ import Checkbox from "../UI/Checkbox";
 // icon
 import { RxCross1 } from "react-icons/rx";
 
-function TodoListItem({ item, removeItem, ...props }) {
+function TodoListItem({ item, removeItem, allScroll, ...props }) {
   const [showFullText, setShowFullText] = useState(false);
 
   const toggleShowFullText = () => {
@@ -22,10 +22,17 @@ function TodoListItem({ item, removeItem, ...props }) {
   };
 
   return (
-    <ListItem {...props} id={item.id}>
+    <ListItem $allScroll={allScroll} {...props} id={item.id}>
       <TodoWrapper>
         <Checkbox id={item.id} isCompleted={item.isCompleted} />
-        <TodoText onClick={toggleShowFullText} $checked={item.isCompleted} $showFull={showFullText}>{item.text}</TodoText>
+        <TodoText
+          $allScroll={allScroll}
+          onClick={toggleShowFullText}
+          $checked={item.isCompleted}
+          $showFull={showFullText}
+        >
+          {item.text}
+        </TodoText>
       </TodoWrapper>
       <DeleteIcon onClick={() => removeItem(item.id)}>
         <RxCross1 />

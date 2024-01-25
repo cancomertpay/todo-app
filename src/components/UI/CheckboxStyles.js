@@ -9,7 +9,7 @@ export const CheckboxContainer = styled.label`
 
 export const CheckboxInput = styled.input`
   position: absolute;
-  top: -9px;
+  top: -11px;
   left: 0;
   opacity: 0;
   cursor: pointer;
@@ -17,27 +17,27 @@ export const CheckboxInput = styled.input`
 
 export const Checkmark = styled.span`
   position: absolute;
-  top: -9px;
+  top: -11px;
   left: 0;
-  height: 16px;
-  width: 16px;
+  height: 20px;
+  width: 20px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-color 0.5s;
+  transition: all 0.5s;
   border: 1px solid ${(props) => props.theme.checkboxBorder};
   -webkit-tap-highlight-color: transparent; 
   -webkit-focus-ring-color: transparent; 
 
   svg {
+    padding-top: 0.1rem;
     visibility: hidden;
-    font-size: 12px;
   }
 
   ${CheckboxInput}:checked + & {
-    height: 17px;
-    width: 17px;
+    height: 20px;
+    width: 20px;
     background: linear-gradient(
       to right,
       hsl(192, 100%, 67%),

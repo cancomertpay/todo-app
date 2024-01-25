@@ -22,7 +22,7 @@ function ListController() {
   };
   return (
     <StyledController>
-      <span>{activeItemsLength} items left</span>
+      {activeItemsLength > 0 ? <span>{activeItemsLength} items left</span> : <span>All tasks done</span>}
       <span onClick={clearCompletedItems}>Clear completed</span>
     </StyledController>
   );
