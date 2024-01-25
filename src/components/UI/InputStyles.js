@@ -13,11 +13,18 @@ export const InputContainer = styled.label`
     font-size: 14px;
     -webkit-tap-highlight-color: transparent;
     -webkit-focus-ring-color: transparent;
+    font-family: "Josefin Sans", sans-serif;
+
+    @media screen and (min-width: 1000px) {
+      padding: 0.2rem;
+      padding-top: 0.3rem;
+      font-size: 18px;
+    }
   }
 
   input::placeholder {
     font-size: 14px;
-    color: ${props => props.theme.secondaryTextColor};
+    color: ${(props) => props.theme.secondaryTextColor};
   }
 
   input:focus {

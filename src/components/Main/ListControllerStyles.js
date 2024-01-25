@@ -5,23 +5,23 @@ export const StyledController = styled.div`
   align-items: center;
   justify-content: space-between;
   font-size: 0.8rem;
-  color: ${props => props.theme.secondaryTextColor};
+  color: ${(props) => props.theme.secondaryTextColor};
   background-color: ${(props) => props.theme.cardColor};
-  cursor: pointer;
   padding: 1.1rem;
   position: relative;
   border-radius: 0 0 4px 4px;
-  border-top: 1px solid ${props => props.theme.checkboxBorder};
+  border-top: 1px solid ${(props) => props.theme.checkboxBorder};
   -webkit-tap-highlight-color: transparent;
   -webkit-focus-ring-color: transparent;
   transition: all 0.5s;
 
   span {
     user-select: none;
+    cursor: pointer;
   }
 
   span:hover {
     transition: color 0.3s;
-    color: ${props => props.theme.textColor};
+    color: ${(props) => props.theme.textColor};
   }
 `;

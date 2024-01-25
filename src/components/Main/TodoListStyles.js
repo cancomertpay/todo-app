@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const TodoListContainer = styled.div`
   background-color: ${(props) => props.theme.cardColor};
-  cursor: pointer;
   border-radius: 4px;
   -webkit-tap-highlight-color: transparent;
   -webkit-focus-ring-color: transparent;

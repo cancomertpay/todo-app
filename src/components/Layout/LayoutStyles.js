@@ -20,6 +20,12 @@ export const StyledLayout = styled.div`
     object-position: center;
     animation: ${props => boxShadowAnimation(props.theme.imgBorderColor)} 5s ease infinite;
   }
+
+  @media screen and (min-width: 1200px) {
+    img {
+      height: 17.5rem !important;
+    }
+  }
 `;
 
 export const ContentContainer = styled.div`
@@ -32,4 +38,10 @@ export const ContentContainer = styled.div`
   top: 0;
   left: 0;
   width: 100%;
+
+  @media screen and (min-width: 760px) {
+    padding-top: 5rem;
+    align-items: center;
+    justify-content: center;
+  }
 `;

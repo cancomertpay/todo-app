@@ -7,7 +7,8 @@ import styled, { keyframes } from "styled-components";
 const fadeIn = keyframes`
   from {
     opacity: 0;
-    transform: translatex(100%);
+    transform: translatex(50%);
+
   }
   to {
     opacity: 1;
@@ -24,7 +25,7 @@ const StyledNotification = styled.div`
   text-align: center;
   color: #1a1a1ac4;
   font-weight: bold;
-  animation: ${fadeIn} 1s ease;
+  animation: ${fadeIn} 0.5s ease;
   cursor: pointer;
   z-index: 1000;
 `;

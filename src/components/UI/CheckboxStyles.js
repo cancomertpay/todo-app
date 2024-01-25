@@ -27,8 +27,8 @@ export const Checkmark = styled.span`
   justify-content: center;
   transition: all 0.5s;
   border: 1px solid ${(props) => props.theme.checkboxBorder};
-  -webkit-tap-highlight-color: transparent; 
-  -webkit-focus-ring-color: transparent; 
+  -webkit-tap-highlight-color: transparent;
+  -webkit-focus-ring-color: transparent;
 
   svg {
     padding-top: 0.1rem;
@@ -46,6 +46,10 @@ export const Checkmark = styled.span`
     border: none;
     svg {
       visibility: visible;
+
+      @media screen and (min-width: 1000px) {
+        padding-left: 0.1rem;
+      }
     }
   }
 

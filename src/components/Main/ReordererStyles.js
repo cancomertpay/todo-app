@@ -7,4 +7,8 @@ export const ReordererContainer = styled.div`
   font-weight: 700;
   color: ${props => props.theme.secondaryTextColor};
   user-select: none;
+
+  @media screen and (min-width: 1000px) {
+    margin-top: 2rem;
+  }
 `

@@ -23,6 +23,7 @@ function Main() {
   // redux
   const dispatch = useDispatch();
 
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1000);
   const [userInput, setUserInput] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const [isUserHittedEnter, setIsUserHittedEnter] = useState(false);
@@ -32,7 +33,7 @@ function Main() {
   };
 
   const handleCheckboxChange = (e) => {
-    if(userInput.length > 3) {
+    if (userInput.length > 3) {
       setIsChecked((prev) => !prev);
     }
     return;
@@ -81,6 +82,18 @@ function Main() {
     handleSubmit();
   }, [isChecked, isUserHittedEnter]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1000);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <StyledMain>
       <Card>
@@ -95,7 +108,7 @@ function Main() {
         />
       </Card>
       <TodoList />
-      <ListFilterers />
+      {!isDesktop && <ListFilterers />}
       <Reorderer />
       <Notification />
     </StyledMain>

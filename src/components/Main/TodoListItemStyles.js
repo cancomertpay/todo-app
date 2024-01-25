@@ -22,11 +22,15 @@ export const TodoWrapper = styled.div`
   overflow-y: hidden;
   white-space: nowrap;
   padding: 4px;
+  gap: 0.5rem;
+  @media screen and (min-width: 1000px) {
+    gap: 1rem;
+  }
 `;
 
 export const TodoText = styled.p`
   max-width: 100%;
-  margin: 0 0 0 0.5rem;
+  margin: 0;
   cursor: ${(props) => (props.$allScroll ? "all-scroll" : "not-allowed")};
   font-size: 15px;
   text-decoration: ${(props) => (props.$checked ? "line-through" : "none")};
@@ -36,6 +40,11 @@ export const TodoText = styled.p`
   overflow-x: auto;
   overflow-wrap: ${(props) => (props.$showFull ? "break-word" : "normal")};
   white-space: ${(props) => (props.$showFull ? "normal" : "no-wrap")};
+
+  @media screen and (min-width: 1000px) {
+    font-size: 18px;
+    margin-top: 0.3rem;
+  }
 `;
 
 export const DeleteIcon = styled.div`
@@ -45,4 +54,8 @@ export const DeleteIcon = styled.div`
   align-items: center;
   justify-content: center;
   color: ${(props) => props.theme.checkedTextColor};
+
+  @media screen and (min-width: 1000px) {
+    display: none;
+  }
 `;

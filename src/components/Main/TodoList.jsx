@@ -125,7 +125,7 @@ function TodoList() {
           <Empty>Empty</Empty>
         )}
       </List>
-      {activeList.length > 0 && <ListController list={activeList} />}
+      {todoList.length > 0 && <ListController list={todoList} />}
     </TodoListContainer>
   );
 }
