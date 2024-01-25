@@ -1,6 +1,6 @@
 # Todo App Project
 
-![Desktop Preview](/desktop/desktop-preview.jpg)
+![Desktop Preview](./design//desktop-preview.jpg)
 
 This project encompasses a Todo application developed using React, Redux Toolkit, and Styled Components. The project aims to provide dynamic solutions while maintaining a clean and optimized codebase.
 
